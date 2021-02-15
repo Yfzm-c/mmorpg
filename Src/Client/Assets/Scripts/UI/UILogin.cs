@@ -14,11 +14,11 @@ public class UILogin : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
-        UserService.Instance.OnLogin = this.OnLogin;
+        UserService.Instance.OnLogin = OnLogin;
     }
 
 
-	
+
 	// Update is called once per frame
 	void Update () {
 		
@@ -36,7 +36,8 @@ public class UILogin : MonoBehaviour {
             MessageBox.Show("请输入密码");
             return;
         }
-        UserService.Instance.SendLogin(this.username, this.password.text);
+        // Enter Game
+        UserService.Instance.SendLogin(this.username.text, this.password.text);
     }
 
     void OnLogin(Result result, string message)
