@@ -1,10 +1,26 @@
-2021-03-08 19:32:26,970 [ 1] INFO  Unity: LoadingManager start
-2021-03-08 19:32:27,047 [ 1] INFO  Unity: DoConnect
-2021-03-08 19:32:27,048 [ 1] INFO  Unity: NetClient.DoConnect on 127.0.0.1:8000
-2021-03-08 19:32:27,051 [ 1] INFO  Unity: Connect[0] to server 127.0.0.1:8000
+2021-03-31 18:14:51,439 [ 1] INFO  Unity: LoadingManager start
+2021-03-31 18:14:51,460 [ 1] INFO  Unity: DoConnect
+2021-03-31 18:14:51,461 [ 1] INFO  Unity: NetClient.DoConnect on 127.0.0.1:8000
+2021-03-31 18:14:51,466 [ 1] INFO  Unity: Connect[0] to server 127.0.0.1:8000
 
-2021-03-08 19:33:03,000 [ 1] INFO  Unity: OnDestroy NetworkManager.
-2021-03-08 19:33:03,001 [ 1] WARN  Unity: CloseConnection(), errorCode: 1007
+2021-03-31 18:14:54,680 [ 1] INFO  Unity: DataManager > DataManager()
+2021-03-31 18:15:08,362 [ 1] INFO  Unity: UserLoginRequest::user :user001 psw:123
+2021-03-31 18:15:08,364 [ 1] INFO  Unity: ConnectToServer() Start 
+2021-03-31 18:15:08,365 [ 1] INFO  Unity: DoConnect
+2021-03-31 18:15:08,366 [ 1] INFO  Unity: NetClient.DoConnect on 127.0.0.1:8000
+2021-03-31 18:15:08,367 [ 1] INFO  Unity: Connect[0] to server 127.0.0.1:8000
+
+2021-03-31 18:15:08,368 [ 1] INFO  Unity: LoadingMesager::OnGameServerConnect :0 reason:Success
+2021-03-31 18:15:10,523 [ 1] INFO  Unity: OnLogin:Success [None]
+2021-03-31 18:15:10,548 [ 1] INFO  Unity: LoadLevel: CharSelect
+2021-03-31 18:15:10,778 [ 1] INFO  Unity: LevelLoadCompleted:1
+2021-03-31 18:15:12,247 [ 1] INFO  Unity: Select Char:[2]哈哈[Archer]
+2021-03-31 18:15:13,156 [ 1] INFO  Unity: Select Char:[1]然然然[Wizard]
+2021-03-31 18:15:14,043 [ 1] INFO  Unity: Select Char:[2]哈哈[Archer]
+2021-03-31 18:15:14,591 [ 1] INFO  Unity: Select Char:[1]然然然[Wizard]
+2021-03-31 18:15:15,036 [ 1] INFO  Unity: Select Char:[2]哈哈[Archer]
+2021-03-31 18:15:30,361 [ 1] INFO  Unity: OnDestroy NetworkManager.
+2021-03-31 18:15:30,362 [ 1] WARN  Unity: CloseConnection(), errorCode: 1007
 UnityEngine.Debug:LogWarning(Object)
 Network.NetClient:CloseConnection(Int32) (at Assets/Scripts/Network/NetClient.cs:180)
 Network.NetClient:OnDestroy() (at Assets/Scripts/Network/NetClient.cs:175)

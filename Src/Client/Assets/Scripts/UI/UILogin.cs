@@ -45,7 +45,7 @@ public class UILogin : MonoBehaviour {
         if (result == Result.Success)
         {
             //登录成功，进入角色选择
-            //MessageBox.Show("登录成功，准备选择角色" + message, "提示", MessageBoxType.Information);
+            MessageBox.Show("登录成功，准备选择角色" + message, "提示", MessageBoxType.Information);
             SceneManager.Instance.LoadScene("CharSelect");
         }
         else

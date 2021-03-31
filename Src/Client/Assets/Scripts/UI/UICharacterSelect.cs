@@ -33,9 +33,9 @@ public class UICharacterSelect : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        DataManager.Instance.Load();
+    
         InitCharacterSelect(true);
-       // UserService.Instance.OnCharacterCreate = OnCharacterCreate;
+        UserService.Instance.OnCharacterCreate = OnCharacterCreate;
     }
 
 
@@ -52,7 +52,7 @@ public class UICharacterSelect : MonoBehaviour {
             }
             uiChars.Clear();
 
-            /*
+            
             for(int i=0;i<User.Instance.Info.Player.Characters.Count;i++)
             {
 
@@ -68,7 +68,7 @@ public class UICharacterSelect : MonoBehaviour {
 
                 uiChars.Add(go);
                 go.SetActive(true);
-            }*/
+            }
 
         }
     }
@@ -92,7 +92,7 @@ public class UICharacterSelect : MonoBehaviour {
             MessageBox.Show("请输入角色名称");
             return;
         }
-       // UserService.Instance.SendCharacterCreate(this.charName.text, this.charClass);
+       UserService.Instance.SendCharacterCreate(this.charName.text, this.charClass);
     }
 
     public void OnSelectClass(int charClass)
