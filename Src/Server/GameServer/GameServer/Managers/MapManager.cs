@@ -17,7 +17,7 @@ namespace GameServer.Managers
             foreach(var mapdefine in DataManager.Instance.Maps.Values)
             {
                 Map map = new Map(mapdefine);
-                Log.InfoFormat("MapManager.Init>Map:{0}:{1}", map.Define.ID, map.Define.Name);
+                Log.InfoFormat("MapManager.Init > Map:{0}:{1}", map.Define.ID, map.Define.Name);
                 this.Maps[mapdefine.ID] = map;
             }
         }

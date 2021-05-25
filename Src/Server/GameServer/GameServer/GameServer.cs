@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net;
 using System.Net.Sockets;
+using GameServer.Network;
 using System.Configuration;
 
 using System.Threading;
@@ -17,18 +18,19 @@ namespace GameServer
 {
     class GameServer
     {
+        NetService network;
         Thread thread;
         bool running = false;
-        NetService network;
 
         public bool Init()
         {
+            int Port = Properties.Settings.Default.ServerPort;
             network = new NetService();
-            network.Init(8000);
+            network.Init(Port);
             DBService.Instance.Init();
-            UserService.Instance.Init();
             DataManager.Instance.Load();
-            MapManager.Instance.Init();
+            MapService.Instance.Init();
+            UserService.Instance.Init();
             thread = new Thread(new ThreadStart(this.Update));
 
             return true;
@@ -37,7 +39,6 @@ namespace GameServer
         public void Start()
         {
             network.Start();
-            //HelloWorldService.Instance.Start();
             running = true;
             thread.Start();
         }

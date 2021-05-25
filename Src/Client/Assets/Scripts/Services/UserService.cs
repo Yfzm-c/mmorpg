@@ -13,8 +13,8 @@ namespace Services
 {
     class UserService : Singleton<UserService>, IDisposable
     {
-        public UnityEngine.Events.UnityAction<Result, string> OnRegister;
         public UnityEngine.Events.UnityAction<Result, string> OnLogin;
+        public UnityEngine.Events.UnityAction<Result, string> OnRegister;
         public UnityEngine.Events.UnityAction<Result, string> OnCharacterCreate;
         NetMessage pendingMessage = null;
         bool connected = false;
@@ -27,8 +27,8 @@ namespace Services
             MessageDistributer.Instance.Subscribe<UserRegisterResponse>(this.OnUserRegister);
             MessageDistributer.Instance.Subscribe<UserCreateCharacterResponse>(this.OnUserCreateCharacter);
             MessageDistributer.Instance.Subscribe<UserGameEnterResponse>(this.OnGameEnter);
-            MessageDistributer.Instance.Subscribe<UserGameEnterResponse>(this.OnGameLeave);
-            MessageDistributer.Instance.Subscribe<MapCharacterEnterResponse>(this.OnCharacterEnter);
+            MessageDistributer.Instance.Subscribe<UserGameLeaveResponse>(this.OnGameLeave);
+            
         }
 
        
@@ -39,7 +39,7 @@ namespace Services
             MessageDistributer.Instance.Unsubscribe<UserRegisterResponse>(this.OnUserRegister);
             MessageDistributer.Instance.Unsubscribe<UserCreateCharacterResponse>(this.OnUserCreateCharacter);
             MessageDistributer.Instance.Unsubscribe<UserGameEnterResponse>(this.OnGameEnter);
-            MessageDistributer.Instance.Unsubscribe<UserGameEnterResponse>(this.OnGameLeave);
+            MessageDistributer.Instance.Unsubscribe<UserGameLeaveResponse>(this.OnGameLeave);
             NetClient.Instance.OnConnect -= OnGameServerConnect;
             NetClient.Instance.OnDisconnect -= OnGameServerDisconnect;
 
@@ -102,6 +102,13 @@ namespace Services
                     if (this.OnRegister != null)
                     {
                         this.OnRegister(Result.Failed, string.Format("服务器断开！\n RESULT:{0} ERROR:{1}", result, reason));
+                    }
+                }
+                else
+                {
+                    if (this.OnCharacterCreate != null)
+                    {
+                        this.OnCharacterCreate(Result.Failed, string.Format("服务器断开！\n RESULT:{0} ERROR:{1}", result, reason));
                     }
                 }
                 return true;
@@ -177,14 +184,13 @@ namespace Services
             }
         }
 
-
-        public void SendCharacterCreate(string charName, CharacterClass cls)
+        public void SendCharacterCreate(string name, CharacterClass cls)
         {
-            Debug.LogFormat("SendCharacterCreate::charName :{0} cls:{1}", charName, cls);
+            Debug.LogFormat("UserCreateCharacterRequest::name :{0} class:{1}", name, cls);
             NetMessage message = new NetMessage();
             message.Request = new NetMessageRequest();
             message.Request.createChar = new UserCreateCharacterRequest();
-            message.Request.createChar.Name = charName;
+            message.Request.createChar.Name = name;
             message.Request.createChar.Class = cls;
 
             if (this.connected && NetClient.Instance.Connected)
@@ -201,7 +207,7 @@ namespace Services
 
         void OnUserCreateCharacter(object sender,UserCreateCharacterResponse response)
         {
-            Debug.LogFormat("OnUserCreateCharacter:{0}[{1}]", response.Result, response.Errormsg);
+            Debug.LogFormat("OnUserCreateCharacter:{0} [{1}]", response.Result, response.Errormsg);
 
             if (response.Result == Result.Success)
             {
@@ -217,7 +223,7 @@ namespace Services
 
         public void SendGameEnter(int characterIdx)
         {
-            Debug.LogFormat("UserGameEnterRequest::characterId:{0}", characterIdx);
+            Debug.LogFormat("UserGameEnterRequest::characterId :{0}", characterIdx);
             NetMessage message = new NetMessage();
             message.Request = new NetMessageRequest();
             message.Request.gameEnter = new UserGameEnterRequest();
@@ -226,7 +232,7 @@ namespace Services
         }
 
 
-        private void OnGameEnter(object sender, UserGameEnterResponse response)
+        void OnGameEnter(object sender, UserGameEnterResponse response)
         {
             Debug.LogFormat("OnGameEnter:{0} [{1}]", response.Result, response.Errormsg);
             if (response.Result == Result.Success)
@@ -245,7 +251,7 @@ namespace Services
             NetClient.Instance.SendMessage(message);
         }
 
-        private void OnGameLeave(object sender, UserGameEnterResponse response)
+        void OnGameLeave(object sender, UserGameLeaveResponse response)
         {
             //MapService.Instance.CurrentMapId = 0;
             Debug.LogFormat("OnGameLeave:{0} [{1}]", response.Result, response.Errormsg);

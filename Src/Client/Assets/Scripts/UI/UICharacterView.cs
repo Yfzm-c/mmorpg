@@ -6,17 +6,18 @@ public class UICharacterView : MonoBehaviour {
 
     public GameObject[] characters;
 
-    private int currectCharacter = 0;
+
+    private int currentCharacter = 0;
 
     public int CurrectCharacter
     {
         get
         {
-            return currectCharacter;
+            return currentCharacter;
         }
         set
         {
-            currectCharacter = value;
+            currentCharacter = value;
             this.UpdateCharacter();
         }
     }
@@ -35,7 +36,7 @@ public class UICharacterView : MonoBehaviour {
     {
         for(int i = 0; i < 3; i++)
         {
-            characters[i].SetActive(i == this.currectCharacter);
+            characters[i].SetActive(i == this.currentCharacter);
         }
     }
 }
