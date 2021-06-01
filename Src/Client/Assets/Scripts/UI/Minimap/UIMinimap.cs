@@ -32,6 +32,9 @@ public class UIMinimap : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if (minimapBoundingBox == null || playerTransform == null)
+            return;
+
         float realWidth = minimapBoundingBox.bounds.size.x;
         float realHeight = minimapBoundingBox.bounds.size.z;
 
