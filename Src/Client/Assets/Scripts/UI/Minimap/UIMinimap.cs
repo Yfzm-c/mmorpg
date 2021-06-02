@@ -27,11 +27,17 @@ public class UIMinimap : MonoBehaviour {
 
         this.minimap.SetNativeSize();
         this.minimap.transform.localPosition = Vector3.zero;
-        this.playerTransform = User.Instance.CurrentCharacterObject.transform;
+
     }
 	
 	// Update is called once per frame
 	void Update () {
+
+        if (playerTransform == null)
+        {
+            playerTransform = MinimapManager.Instance.PlayerTransform;
+        }
+
         if (minimapBoundingBox == null || playerTransform == null)
             return;
 

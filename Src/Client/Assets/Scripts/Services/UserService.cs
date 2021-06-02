@@ -254,16 +254,17 @@ namespace Services
         void OnGameLeave(object sender, UserGameLeaveResponse response)
         {
             MapService.Instance.CurrentMapId = 0;
+            User.Instance.CurrentCharacter = null;
             Debug.LogFormat("OnGameLeave:{0} [{1}]", response.Result, response.Errormsg);
         }
 
-        //private void OnCharacterEnter(object sender, MapCharacterEnterResponse message)
-        //{
-        //    Debug.LogFormat("OnMapCharacterEnter:{0}", message.mapId);
-        //    NCharacterInfo info = message.Characters[0];
-        //    User.Instance.CurrentCharacter = info;
-        //    SceneManager.Instance.LoadScene(DataManager.Instance.Maps[message.mapId].Resource);
-        //}
+        private void OnCharacterEnter(object sender, MapCharacterEnterResponse message)
+        {
+            Debug.LogFormat("OnMapCharacterEnter:{0}", message.mapId);
+            NCharacterInfo info = message.Characters[0];
+            User.Instance.CurrentCharacter = info;
+            SceneManager.Instance.LoadScene(DataManager.Instance.Maps[message.mapId].Resource);
+        }
 
 
 
