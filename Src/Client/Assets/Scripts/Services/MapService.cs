@@ -64,6 +64,8 @@ namespace Services
                 CharacterManager.Instance.Clear();
         }
 
+
+
         private void EnterMap(int mapId)
         {
             if (DataManager.Instance.Maps.ContainsKey(mapId))
@@ -92,7 +94,7 @@ namespace Services
         }
 
 
-        private void OnMapEntitySync(object sender, MapEntitySyncResponse response)
+        void OnMapEntitySync(object sender, MapEntitySyncResponse response)
         {
             System.Text.StringBuilder sb = new System.Text.StringBuilder();
             sb.AppendFormat("MapEntityUpdateResponse:Entitys:{0}", response.entitySyncs.Count);
@@ -104,6 +106,17 @@ namespace Services
                 sb.AppendLine();
             }
             Debug.Log(sb.ToString());
+        }
+
+
+        internal void SendMapTeleport(int teleporterID)
+        {
+            Debug.LogFormat("MapTeleportRequest:teleporterID:{0}", teleporterID);
+            NetMessage message = new NetMessage();
+            message.Request = new NetMessageRequest();
+            message.Request.mapTeleport = new MapTeleportRequest();
+            message.Request.mapTeleport.teleporterId = teleporterID;
+            NetClient.Instance.SendMessage(message);
         }
 
 
